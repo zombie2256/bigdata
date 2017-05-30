@@ -16,28 +16,29 @@ class Utils extends Serializable {
         return (ip.toString)
     }
 
-    def gettop10(accessLogs:RDD[String], sc:SparkContext):Array[(String,Int)] = {
+    def gettop10(accessLogs:RDD[String], sc:SparkContext, topn:Int):Array[(String,Int)] = {
         //Keep only the lines which have IP
         var ipaccesslogs = accessLogs.filter(containsIP)
         var cleanips = ipaccesslogs.map(extractIP(_))
         var ips_tuples = cleanips.map((_,1));
         var frequencies = ips_tuples.reduceByKey(_ + _);
         var sortedfrequencies = frequencies.sortBy(x => x._2, false)
-        return sortedfrequencies.take(10)
+        return sortedfrequencies.take(topn)
     }
 }
 
 object EntryPoint {
-	val usage = """
-    	Usage: EntryPoint file_or_directory_in_hdfs
-  	"""
+    val usage = """
+        Usage: EntryPoint file_or_directory_in_hdfs how_many
+        Eample: EntryPoint /data/spark/project/access/access.log.45.gz 10
+    """
     
     def main(args: Array[String]) {
-    	
-    	if (args.length == 0) {
-    		println("Please provide the directory in hdfs as first argument.")
-    		return;
-    	}
+        
+        if (args.length != 2) {
+            println(usage)
+            return;
+        }
 
         var utils = new Utils
 
@@ -48,7 +49,7 @@ object EntryPoint {
 
         // var accessLogs = sc.textFile("/data/spark/project/access/access.log.45.gz")
         var accessLogs = sc.textFile(args(0))
-        val top10 = utils.gettop10(accessLogs, sc)
+        val top10 = utils.gettop10(accessLogs, sc, args(1).toInt)
         println("===== TOP 10 IP Addresses =====")
         for(i <- top10){
             println(i)
