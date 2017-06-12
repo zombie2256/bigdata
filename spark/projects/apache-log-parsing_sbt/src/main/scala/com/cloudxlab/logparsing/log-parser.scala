@@ -36,6 +36,7 @@ object EntryPoint {
     def main(args: Array[String]) {
         
         if (args.length != 2) {
+            println("Expected:2 , Provided: " + str(args.length))
             println(usage)
             return;
         }
