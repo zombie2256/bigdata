@@ -28,7 +28,6 @@ class Utils extends Serializable {
 }
 
 object EntryPoint {
-    print "Hi"
     val usage = """
         Usage: EntryPoint <how_many> <file_or_directory_in_hdfs>
         Eample: EntryPoint 10 /data/spark/project/access/access.log.45.gz
