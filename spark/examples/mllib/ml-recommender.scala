@@ -10,6 +10,9 @@ def parseRating(str: String): Rating = {
   Rating(fields(0).toInt, fields(1).toInt, fields(2).toFloat, fields(3).toLong)
 }
 
+//Test it
+parseRating("1::1193::5::978300760")
+
 var raw = sc.textFile("/data/ml-1m/ratings.dat")
 val ratings = raw.map(parseRating).toDF()
 val Array(training, test) = ratings.randomSplit(Array(0.8, 0.2))
