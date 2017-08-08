@@ -19,6 +19,9 @@ var raw = sc.textFile("/data/ml-1m/ratings.dat")
 raw.take(1)
 
 val ratings = raw.map(parseRating).toDF()
+//check if everything is ok
+ratings.show(5)
+
 val Array(training, test) = ratings.randomSplit(Array(0.8, 0.2))
 
 // Build the recommendation model using ALS on the training data
