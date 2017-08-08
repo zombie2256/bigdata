@@ -1,3 +1,5 @@
+//Run it with spark 2
+//In case of cloudxlab: /usr/spark2.0.1/bin/spark-shell 
 
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.recommendation.ALS
