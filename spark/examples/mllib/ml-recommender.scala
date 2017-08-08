@@ -14,6 +14,10 @@ def parseRating(str: String): Rating = {
 parseRating("1::1193::5::978300760")
 
 var raw = sc.textFile("/data/ml-1m/ratings.dat")
+//check one record. it should be res4: Array[String] = Array(1::1193::5::978300760)
+//If this fails the location of file is wrong.
+raw.take(1)
+
 val ratings = raw.map(parseRating).toDF()
 val Array(training, test) = ratings.randomSplit(Array(0.8, 0.2))
 
