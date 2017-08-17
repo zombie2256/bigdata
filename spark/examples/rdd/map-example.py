@@ -16,3 +16,5 @@ dbls = nums.map(multiplyByTwo);
 
 #This should print [2, 4, 6, 8, 10]
 dbls.take(5)
+
+dbls.saveAsTextFile("mydirectory")
