@@ -17,6 +17,10 @@ def parseLogLine(log):
 #Test if it is working
 parseLogLine(line)
 
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("PythonWordCount").getOrCreate()
+sc = spark.sparkContext
+
 logFile = sc.textFile("/data/spark/project/NASA_access_log_Aug95.gz")
 
 accessLog = logFile.flatMap(parseLogLine)
