@@ -8,11 +8,28 @@
   <name>ZookeeperExample</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+    <!-- <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>3.4.8</version>
+        <type>pom</type>
+    </dependency> -->
+   
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
+    </dependency>    
+   
+    <dependency>
+     <groupId>zookeper</groupId>
+     <artifactId>zookeper</artifactId>
+     <scope>system</scope>
+     <version>1.0</version>
+     <systemPath>${basedir}/src/lib/zookeeper-3.4.6.2.3.4.0-3485.jar</systemPath>
+   </dependency>
+
   </dependencies>
 </project>
