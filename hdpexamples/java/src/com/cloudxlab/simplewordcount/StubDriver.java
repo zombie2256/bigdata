@@ -31,7 +31,7 @@ public class StubDriver {
 		job.setMapOutputValueClass(LongWritable.class);
 
 		// job.setInputFormatClass(FixedLengthInputFormat.class);
-		FixedLengthInputFormat.setRecordLength(conf, 15);
+		//FixedLengthInputFormat.setRecordLength(conf, 15);
 //		conf.set("textinputformat.record.delimiter", ".");
 
 		FileInputFormat.addInputPath(job, new Path(args[1]));
