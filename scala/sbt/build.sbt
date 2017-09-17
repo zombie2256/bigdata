@@ -1,7 +1,7 @@
 //Name of your project
 name := "hello"
 
-//Version of your project
+//The Version of your project
 version := "1.0"
 
 //Scala version required for the project
