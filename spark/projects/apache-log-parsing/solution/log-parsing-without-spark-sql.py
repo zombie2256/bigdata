@@ -23,10 +23,7 @@ def logLineParsing(logLine):
             HTTPreply = (identify.group(6)),
             bytesRtrnd = (identify.group(7)))
     
-#This function returns 
-
-conf = (SparkConf()
-         .setAppName("logParsing"))
+conf = (SparkConf().setAppName("logParsing"))
 sc = SparkContext(conf = conf)
 
 logRDD = (sc.textFile(logFile)
