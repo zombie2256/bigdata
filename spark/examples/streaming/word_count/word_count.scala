@@ -3,6 +3,7 @@
 import org.apache.spark._
 import org.apache.spark.streaming._
 
+sc.setLogLevel(ERROR)
 // Create a local StreamingContext with batch interval of 10 second
 val ssc = new StreamingContext(sc, Seconds(10))
 
