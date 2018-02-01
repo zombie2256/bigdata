@@ -2,13 +2,13 @@
 
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.SparkSession
-
-val spark = SparkSession
-  .builder
-  .appName("StructuredNetworkWordCount")
-  .getOrCreate()
-  
 import spark.implicits._
+
+// This part is needed if you are using spark-submit. "spark" object is made available by spark-shell
+// val spark = SparkSession
+//   .builder
+//   .appName("StructuredNetworkWordCount")
+//   .getOrCreate()
 
 // Create DataFrame representing the stream of input lines from connection to localhost:9999
 val lines = spark.readStream
