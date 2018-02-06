@@ -11,11 +11,7 @@ import spark.implicits._
 //   .getOrCreate()
 
 // Create DataFrame representing the stream of input lines from connection to localhost:9999
-val lines = spark.readStream
-  .format("socket")
-  .option("host", "localhost")
-  .option("port", 9999)
-  .load()
+val lines = spark.readStream.format("socket").option("host", "localhost").option("port", 9999).load()
 
 // Split the lines into words
 val words = lines.as[String].flatMap(_.split(" "))
