@@ -20,10 +20,7 @@ val words = lines.as[String].flatMap(_.split(" "))
 val wordCounts = words.groupBy("value").count()
 
 // Start running the query that prints the running counts to the console
-val query = wordCounts.writeStream
-  .outputMode("complete")
-  .format("console")
-  .start()
+val query = wordCounts.writeStream.outputMode("complete").format("console").start()
 
 query.awaitTermination()
 
