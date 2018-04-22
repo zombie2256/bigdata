@@ -1,3 +1,5 @@
+These are the notes from Big Data with Spark class
+
 TODO:
 Before we start, was the table created for the Spark dataframe vs python vs SQL ???
 
@@ -79,3 +81,71 @@ sortBykey -> data will be order
 Discuss
 
 ----
+class Customer {
+    var Name:String
+    var Address: String
+}
+
+=======
+var nums = sc.parallelize((1 to 100000), 50)
+
+def mysum(itr:Iterator[Int]):Iterator[Int] = {
+        return Array(itr.sum).toIterator
+}
+var partitions = nums.mapPartitions(mysum)
+
+def incrByOne(x:Int ):Int = {
+    return x+1;
+}
+var partitions1 = partitions.map(incrByOne)
+partitions1.collect()
+
+partitions1.persist()
+partitions1.collect()
+partitions1.unpersist()
+var mysl = StorageLevel(true, true, false, true, 1)
+import org.apache.spark.storage.StorageLevel
+var mysl = StorageLevel(true, true, false, true, 1)
+partitions1.persist(mysl)
+partitions1.collect()
+:history
+
+Connection to the Database
+
+class X implements Serializable
+{
+    
+}
+----
+
+val userData = sc.sequenceFile[ UserID, UserInfo](" hdfs://...")
+ //.partitionBy( new HashPartitioner( 100))
+ .persist()
+
+
+// Function called periodically to process a logfile of events in the past 5 minutes;
+// we assume that this is a SequenceFile containing (UserID, LinkInfo) pairs.
+def processNewLogs( logFileName: String) {
+  val events = sc.sequenceFile[ UserID, LinkInfo]( logFileName)
+  val joined = userData.join( events) // RDD of (UserID, (UserInfo, LinkInfo)) pairs
+  val offTopicVisits = joined.filter({
+     case (userId, (userInfo, linkInfo)) = > !userInfo.topics.contains( linkInfo.topic)
+  }).count()
+  println(" Number of visits to non-subscribed topics: " + offTopicVisits)
+}
+
+def f(t:(userId, (userInfo, linkInfo))) = {
+    return !userInfo.topics.contains( linkInfo.topic)
+}
+val offTopicVisits = joined.filter(f)
+.count()
+
+
+
+userData: [(UserID1, UserInfo1), (UserID2, UserInfo2)]
+events: [(UserID1, LinkInfo1), (UserID2, LinkInfo2) ]
+
+res = userData.join(events) 
+res = [(UserID1, (UserInfo1, LinkInfo1)), (UserID2, (UserInfo2, LinkInfo2))]
+
+
