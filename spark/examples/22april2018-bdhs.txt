@@ -1,0 +1,81 @@
+TODO:
+Before we start, was the table created for the Spark dataframe vs python vs SQL ???
+
+https://cloudxlab.com/assessment/slide/18/writing-spark-applications?course_id=1
+https://cloudxlab.com/assessment/slide/58/spark-project-log-parsing?course_id=1
+https://cloudxlab.com/assessment/slide/29/apache-spark-key-value-rdd/1244/project-handling-binary-files?course_id=1
+
+
+var txtRDD = sc.textFile("/data/spark/temps.csv")
+def cleanRecord(line:String) = {
+    var arr = line.split(",");
+    (arr(1).trim, arr(0).toInt)
+}
+var recordsRDD = txtRDD.map(cleanRecord)
+def max(a:Int, b:Int) = if (b > a) b else a
+var res = recordsRDD.reduceByKey(max)
+res.collect()
+
+CHICAGO,21), (BLR,23), (SEATLE,25), (NYC,24)
+----
+
+
+20, NYC, 2014-01-01
+20, NYC, 2015-01-01
+
+var txtRDD = sc.textFile("/data/spark/temps.csv")
+
+def cleanRecord(line:String): (String, (Int, String)) = {
+    var arr = line.split(",");
+    return (arr(1).trim, (arr(0).toInt, arr(2).trim))
+}
+
+var recordsRDD = txtRDD.map(cleanRecord)
+//
+[
+    (NYC, (20, "1-1-2018")), 
+    ("NYC", (21, "2-1-2018")), 
+    ("SEATLE", (20, "1-1-2017")) ]
+]
+
+==> Grouping 
+"NYC", [(20, "1-1-2018"), (21, "2-1-2018")]
+"SEATLE", [(20, "1-1-2017")]
+
+=> max
+"NYC", (21, "2-1-2018")
+"SEATLE", (20, "1-1-2017"
+
+def max(t:(Int, String), t1:(Int, String)):(Int, String)  = {
+    if (t._1 == t1._1){
+        if(t._2 > t1._2) t else t1
+    } else if (t._1 > t1._1){
+        return t
+    } else return t1
+}
+
+
+var res = recordsRDD.reduceByKey(max)
+res.collect()
+----
+def min() = {
+    ....
+}
+
+var res1 = recordsRDD.reduceByKey(min)
+
+var output = res.union(res1)
+def concatenate(min, max) = {
+    ...
+}
+ouput.reduceByKey(concat_max_min)
+---
+
+reduceByCity() -> nyc, tuple
+sortBykey -> data will be order 
+
+----
+
+Discuss
+
+----
