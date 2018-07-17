@@ -30,3 +30,8 @@ The code is available in both python and scala in the respective folders.
 
 ### Note:
 The work is still heavily under developement. The code is not yet modular. If you want to use it right now, you might have to fiddle around the code.
+
+TODO:
+* Make Modular
+* Write comments
+* Remove the actual phrase from key
