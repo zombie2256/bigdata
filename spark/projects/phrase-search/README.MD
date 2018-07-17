@@ -26,5 +26,7 @@ Say, you have a huge list of phrases and you want to search these phrases in a h
 |(4, 2)                  | [27] |
 |(1, 2)                  | [61] |
 
+The code is available in both python and scala in the respective folders.
+
 ### Note:
 The work is still heavily under developement. The code is not yet modular. If you want to use it right now, you might have to fiddle around the code.
