@@ -125,3 +125,6 @@ grped_by_ids2.saveAsTextFile("phrase-search2")
 #    ((330055329847070720, 49779), [(u'to', 9, 0, 1), (u'to', 14, 0, 1)])
 #]
 
+from pyspark import SparkContext, SparkConf
+conf = SparkConf().setAppName("Phrase Search")
+sc = SparkContext(conf=conf)
