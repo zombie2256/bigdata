@@ -8,7 +8,8 @@ import org.apache.spark.sql._
 import scala.collection.mutable.ArrayBuffer
 import spark.implicits._
 
-var tweets_text = spark.read.json("/Users/sandeep/projects/phrase-search/data").select("id", "text")
+// var tweets_text = spark.read.json("/Users/sandeep/projects/phrase-search/data").select("id", "text")
+var tweets_text = spark.read.json("/data/SentimentFiles/SentimentFiles/upload/data/tweets_raw").select("id", "text")
 def towords(row:Row):ArrayBuffer[(String, (Int,Long))] = {
     var idobj = row(0)
     var res = ArrayBuffer[(String, (Int,Long))]()
@@ -30,8 +31,8 @@ var words = tweets_text.flatMap(towords)
 // words.count
 
 // https://github.com/caarmen/thesaurus/blob/master/library/src/main/resources/dictionary_files/roget/pg10681.txt
-// var commonphrases = sc.textFile("/data/common_phrases_pg10681.txt").zipWithIndex()
-var commonphrases = sc.textFile("/Users/sandeep/projects/phrase-search/data/common_phrases_pg10681.txt").zipWithIndex()
+var commonphrases = sc.textFile("/data/common_phrases_pg10681.txt").zipWithIndex()
+// var commonphrases = sc.textFile("/Users/sandeep/projects/phrase-search/data/common_phrases_pg10681.txt").zipWithIndex()
 
 def toCommonWords(t:Tuple2[String, Long]):ArrayBuffer[(String, (Int, Long, Int, String))] = {
     var ph = t._1.toLowerCase()
