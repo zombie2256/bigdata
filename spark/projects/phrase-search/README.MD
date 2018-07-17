@@ -1,6 +1,6 @@
 Say, you have a huge list of phrases and you want to search these phrases in a huge dataset.
 
-Phrases:
+### Phrases:
 
 |id   | phrase |
 |-----|-------------
@@ -10,14 +10,14 @@ Phrases:
 |4    | to be or not to be|
 
 
-Content:
+### Content:
 
 |id  | phrase     |
 |----|-------------------------------------------------------------------------------------------------------------------
 |1   |Earlier the work he did was a hot cake but once he quit cold turkey, he never received a call from the publishers. |
 |2L  |The question for him was to be or not to be on look out for pot boiler.|
 
-Result:
+### Result:
 
 |(Phrase Id, Content Id) | Result (Positions in Content)|
 |------------------------|-------------------------|
@@ -26,3 +26,5 @@ Result:
 |(4, 2)                  | [27] |
 |(1, 2)                  | [61] |
 
+### Note:
+The work is still heavily under developement. The code is not yet modular. If you want to use it right now, you might have to fiddle around the code.
