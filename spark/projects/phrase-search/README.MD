@@ -11,11 +11,11 @@ id  | phrase
 
 
 Content:
-------------------
-id  | phrase
-------------------
-1   |Earlier the work he did was a hot cake but once he quit cold turkey, he never received a call from the publishers.
-2L  |The question for him was to be or not to be on look out for pot boiler.
+
+|id  | phrase     |
+|------------------
+|1   |Earlier the work he did was a hot cake but once he quit cold turkey, he never received a call from the publishers. |
+|2L  |The question for him was to be or not to be on look out for pot boiler.|
 
 Result:
 --------------------------------------------------
