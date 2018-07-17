@@ -1,13 +1,13 @@
 Say, you have a huge list of phrases and you want to search these phrases in a huge dataset.
 
 Phrases:
-------------------
-id  | phrase
-------------------
-1    | pot boiler
-2    | hot cake
-3    | cold turkey
-4    | to be or not to be
+
+|id   | phrase |
+|-----|-------------
+|1    | pot boiler |
+|2    | hot cake|
+|3    | cold turkey|
+|4    | to be or not to be|
 
 
 Content:
