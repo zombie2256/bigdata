@@ -18,11 +18,11 @@ Content:
 |2L  |The question for him was to be or not to be on look out for pot boiler.|
 
 Result:
---------------------------------------------------
-(Phrase Id, Content Id) | Result (Positions in Content)
---------------------------------------------------
-(3, 1)                  | [57]
-(2, 1)                  | [31]
-(4, 2)                  | [27]
-(1, 2)                  | [61]
+
+|(Phrase Id, Content Id) | Result (Positions in Content)|
+|------------------------|-------------------------|
+|(3, 1)                  | [57] |
+|(2, 1)                  | [31] |
+|(4, 2)                  | [27] |
+|(1, 2)                  | [61] |
 
