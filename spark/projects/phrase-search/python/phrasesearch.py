@@ -98,6 +98,7 @@ def find_phrases(sc, phrases_neddle, text_hay):
         if len(res) > 0:
             return [(t, res)]
         return []
+
     def find_matches_new((t, a)):
         print("find_matches_new: (%s, %s)" % (t, a))
         #Sort the data based on tw_loc
@@ -139,23 +140,29 @@ def find_phrases(sc, phrases_neddle, text_hay):
         return result
 
     def find_matches2((t, a)):
-        # print("find_matches_new: (%s, %s)" % (t, a))
+        print("find_matches_new: (%s, %s)" % (t, a))
         #Prepare the line
+        #swap t
+        t = (t[1], t[0])
         a.sort(key=lambda t: (t[1]))
         prev = a[0]
         line = [a[0][0]]
+        line_locs = [a[0][1]]
         for i in range(1, len(a)):
             if prev[1] == a[i][1]:
                 continue;
             elif prev[1] + 1 < a[i][1]:
                 line.append(u" ")
+                line_locs.append(-1)
             # line.append(u" ")
             line.append(a[i][0])
+            line_locs.append(a[i][1])
             prev = a[i]
         #Prepare the phrase
         a.sort(key=lambda t: (t[2]))
         prev = a[0]
         phrase = [a[0][0]]
+        
         count = 1
         l = a[0][3]
         for i in range(1, len(a)):
@@ -170,14 +177,16 @@ def find_phrases(sc, phrases_neddle, text_hay):
         result = []
         if count >= l:
             locs = inarray(phrase, line)
-            if len(locs) > 0:
-                result = [(t, locs)]
-        # print("Result: %s" % result)
+            print("line_locs: %s, line: %s" %(line_locs, line))
+            vals = [line_locs[i] for i in locs]
+            if len(vals) > 0:
+                result = [(t, vals)]
+        print("Result: %s" % result)
         return result
     # find_matches2(((2, 4), [(u'not', 8, 3, 6), (u'be', 6, 1, 6), (u'be', 6, 5, 6), (u'be', 10, 1, 6), (u'be', 10, 5, 6), (u'to', 5, 0, 6), (u'to', 5, 4, 6), (u'to', 9, 0, 6), (u'to', 9, 4, 6), (u'or', 7, 2, 6)]))
 
     def inarray(a, b):
-        # print("inarray: (%s, %s)" % (a, b))
+        print("inarray: (%s, %s)" % (a, b))
         result = []
         for start in range(len(b)-len(a)+1):
             broke = False
@@ -187,7 +196,7 @@ def find_phrases(sc, phrases_neddle, text_hay):
                     break
             if not broke:
                 result.append(start)
-        # print("Result: %s" % result)
+        print("INARR Result: %s" % result)
         return result
 
     def search_continuous(found, length):

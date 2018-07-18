@@ -23,11 +23,11 @@ Say, you have a huge list of phrases and you want to search these phrases in a h
 
 |(Phrase Id, Content Id) | Result (Positions in Content)|
 |------------------------|-------------------------|
-|(4, 2)                  | [6]                     |
+|(4, 2)                  | [10]                     |
 |(5, 4)                  | [1, 5])                 |
-|(2, 1)                  | [0]                     |
-|(3, 1)                  | [0]                     |
-|(1, 2)                  | [0]                     |
+|(2, 1)                  | [7]                     |
+|(3, 1)                  | [13]                     |
+|(1, 2)                  | [20]                     |
 
 The code is available in both python and scala in the respective folders.
 
