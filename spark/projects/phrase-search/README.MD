@@ -24,7 +24,7 @@ Say, you have a huge list of phrases and you want to search these phrases in a h
 |(Phrase Id, Content Id) | Result (Word Positions in Content)|
 |------------------------|-------------------------|
 |(4, 2)                  | [10]                     |
-|(5, 4)                  | [1, 5])                 |
+|(5, 4)                  | [1, 5]                 |
 |(2, 1)                  | [7]                     |
 |(3, 1)                  | [13]                     |
 |(1, 2)                  | [20]                     |
