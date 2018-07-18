@@ -18,7 +18,7 @@ Say, you have a huge list of phrases and you want to search these phrases in a h
 |2   |The question to be or not to for him was to be or not to be on look out for pot boiler cold|
 |3   |ice baby ice|
 |4   |ice ice ice baby baby ice ice baby|
-|
+
 ### Result:
 
 |(Phrase Id, Content Id) | Result (Positions in Content)|
