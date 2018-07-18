@@ -21,7 +21,7 @@ Say, you have a huge list of phrases and you want to search these phrases in a h
 
 ### Result:
 
-|(Phrase Id, Content Id) | Result (Positions in Content)|
+|(Phrase Id, Content Id) | Result (Word Positions in Content)|
 |------------------------|-------------------------|
 |(4, 2)                  | [10]                     |
 |(5, 4)                  | [1, 5])                 |
