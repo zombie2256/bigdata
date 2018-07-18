@@ -4,27 +4,30 @@ Say, you have a huge list of phrases and you want to search these phrases in a h
 
 |id   | phrase |
 |-----|-------------
-|1    | pot boiler |
-|2    | hot cake|
-|3    | cold turkey|
-|4    | to be or not to be|
-
+|1    |pot boiler|
+|2    |hot cake|
+|3    |cold turkey|
+|4    |to be or not to be|
+|5    |ice ice baby|
 
 ### Content:
 
 |id  | text     |
-|----|-------------------------------------------------------------------------------------------------------------------
-|1   |Earlier the work he did was a hot cake but once he quit cold turkey, he never received a call from the publishers. |
-|2  |The question for him was to be or not to be on look out for pot boiler.|
-
+|----|-----------------------------------------------------------------------------------------|
+|1   |Earlier the work he did was a hot cake but once he quit cold turkey he never received a call from the publishers boiler|
+|2   |The question to be or not to for him was to be or not to be on look out for pot boiler cold|
+|3   |ice baby ice|
+|4   |ice ice ice baby baby ice ice baby|
+|
 ### Result:
 
 |(Phrase Id, Content Id) | Result (Positions in Content)|
 |------------------------|-------------------------|
-|(3, 1)                  | [57] |
-|(2, 1)                  | [31] |
-|(4, 2)                  | [27] |
-|(1, 2)                  | [61] |
+|(4, 2)                  | [6]                     |
+|(5, 4)                  | [1, 5])                 |
+|(2, 1)                  | [0]                     |
+|(3, 1)                  | [0]                     |
+|(1, 2)                  | [0]                     |
 
 The code is available in both python and scala in the respective folders.
 
