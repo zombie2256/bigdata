@@ -1,0 +1,157 @@
+// export HADOOP_CONF_DIR=/etc/hadoop/conf/
+// export YARN_CONF_DIR=/etc/hadoop/conf/
+// /usr/spark-2.3.1/bin/spark-shell
+// /usr/spark2.0.2/bin/spark-shell
+
+
+import org.apache.spark.sql._
+import scala.collection.mutable.ArrayBuffer
+import spark.implicits._
+
+
+object PhraseSearcher {
+    def search_continuous(found: ArrayBuffer[ArrayBuffer[Result]], length:Int):Boolean = {
+        var to_find = 0 to length-1
+        for(list <- found) {
+            var target = list.map(_.ph_loc)
+            if(target containsSlice to_find) {
+                return true
+            }
+        }
+        return false
+    }
+    def ismatch(result:Tuple2[Tuple2[Long, Long], Array[Result]]):Boolean = {
+        var a:Array[Result] = result._2
+        // Sort the data based on tw_loc
+        a = a.sortWith(_.tw_loc < _.tw_loc)
+        // print("After sorting")
+        // print(a) #[(u'the', 14, 1, 2), (u'in', 19, 0, 2), (u'the', 20, 1, 2)]
+        // Go from left to right breaking it into continuous strings
+        var found = ArrayBuffer[ArrayBuffer[Result]]();
+        var prev = a(0)
+        var current = ArrayBuffer[Result](prev)
+        for (i <- 1 to a.length - 1){
+            if(a(i).tw_loc != prev.tw_loc + 1){
+                found += current
+                current = ArrayBuffer[Result]()
+            }
+            prev = a(i)
+            current += prev
+        }
+        found += current
+        return search_continuous(found, prev.ph_len)
+        // return true
+    }
+    def search():
+    {
+        // var tweets_text = spark.read.json("/Users/sandeep/projects/phrase-search/data").select("id", "text")
+        var tweets_text = spark.read.json("/data/SentimentFiles/SentimentFiles/upload/data/tweets_raw").select("id", "text")
+        def towords(row:Row):ArrayBuffer[(String, (Int,Long))] = {
+            var idobj = row(0)
+            var res = ArrayBuffer[(String, (Int,Long))]()
+            if(idobj != null) {
+                var id = idobj.asInstanceOf[Long]
+                var txt:String = row(1).asInstanceOf[String]
+                
+                var arr = txt.split(" ")
+                for(i <- 0 to arr.length-1) {
+                    res += Tuple2(arr(i), (i, id));
+                }
+            }
+            return res
+        }
+        //towords(Row(1, "sandeep giri"))
+
+        var words = tweets_text.flatMap(towords)
+        // words.take(10)
+        // words.count
+
+        // https://github.com/caarmen/thesaurus/blob/master/library/src/main/resources/dictionary_files/roget/pg10681.txt
+        var commonphrases = sc.textFile("/data/common_phrases_pg10681.txt").zipWithIndex()
+        // var commonphrases = sc.textFile("/Users/sandeep/projects/phrase-search/data/common_phrases_pg10681.txt").zipWithIndex()
+
+        def toCommonWords(t:Tuple2[String, Long]):ArrayBuffer[(String, (Int, Long, Int, String))] = {
+            var ph = t._1.toLowerCase()
+            var arr = ph.split(" ");
+            var output = ArrayBuffer[(String, (Int, Long, Int, String))]()
+            var l = arr.length
+            // Do we need ph
+            for(i <- 0 to l-1) output.append( (arr(i),(i, t._2, l, ph) ) )
+            return output
+        }
+
+        // tocommonwords(("a dead horse", 1))
+        var commonwords = commonphrases.flatMap(toCommonWords).toDS()
+        // commonwords.take(10)
+        // commonwords.count
+
+        var joind = commonwords.joinWith(words, words("_1") === commonwords("_1"))
+
+        case class Result(w:String, tw_loc:Int, ph_loc:Int, ph_len:Int)
+        def toDocsKey(a:Tuple2[String, ((Int, Long), (Int, Long, Int, String))]): Tuple2[(Long, Long), Array[Result]] = {
+            var w = a._1
+            var twdetails = a._2._1
+            var phdetails = a._2._2
+            var tw_loc = twdetails._1
+            var tw_id = twdetails._2
+            
+            var ph_loc = phdetails._1
+            var ph_id = phdetails._2
+            var ph_len = phdetails._3
+            var w1 = phdetails._4
+            return ((tw_id, ph_id), Array(Result(w, tw_loc, ph_loc, ph_len)))
+        }
+        // toDocsKey(
+        //     Tuple2("swap", 
+        //         Tuple2(
+        //             Tuple2(4, 330137257023516672L), 
+        //             Tuple4(0, 47632, 1, "swap")
+        //         )
+        //     )
+        // )
+
+        var joind1 = joind.map(r => (r._1._1, (r._2._2, r._1._2)))
+        var ids_words_list = joind1.map(toDocsKey)
+
+        // ids_words_list: Array[((Long, Long), Array[Result])] = Array(
+        //    ((330166073968181249,0),Array(Result(a,2,0,2))), 
+        //    ((330166067915796481,0),Array(Result(a,2,0,2))),
+        //    ((330166067689308161,0),Array(Result(a,4,0,2))), 
+        // )
+        def concatArr(x:Array[Result], y:Array[Result]):Array[Result] = {
+            return x ++ y
+        }
+
+        var grped_by_ids = ids_words_list.rdd.reduceByKey(concatArr(_, _))
+        // grped_by_ids.take(10)
+
+        //    ((330143366031486976, 34529), [(u'the', 6, 1, 3)]), 
+        //    ((330069166537195520, 23451), [(u'out', 2, 1, 4), (u'out', 17, 1, 4)]), ((330140950972219393, 48899), [(u'in', 19, 3, 5), (u'the', 14, 0, 5), (u'the', 20, 0, 5)]), 
+        //    ((330167828860780544, 25151), [(u'in', 22, 0, 2)]), 
+        //    ((330085409382076416, 28847), [(u'the', 3, 2, 4), (u'the', 9, 2, 4), (u'the', 13, 2, 4)]), 
+        //    ((330048099072479232, 21012), [(u'to', 3, 1, 3)]), 
+        //    ((330128676979089408, 34702), [(u'of', 1, 1, 3)]), 
+        //    ((330094076009529344, 23451), [(u'the', 5, 2, 4)]), 
+        //    ((330062596361314304, 29106), [(u'man', 1, 1, 2)]), 
+        //    ((330142973415288835, 28274), [(u'out', 6, 1, 2)])
+        // 
+        // Keep Only the one where length matched 
+        //    case class Result(w:String, tw_loc:Int, ph_loc:Int, ph_len:Int)
+
+        var grped_by_ids1 = grped_by_ids.filter( results => results._2.length > results._2(0).ph_len)
+
+
+
+        // ismatch((330134383979802625L, 26759L), Array(Result("in", 19, 3, 5), Result("the", 14, 0, 5), Result("the", 20, 0, 5)))
+        // ismatch((330134383979802625L, 26759L), Array(Result("in", 19, 0, 2), Result("the", 14, 1, 2), Result("the", 20, 1, 2)))
+
+        var grped_by_ids2 = grped_by_ids1.filter(ismatch)
+        
+        //grped_by_ids2.take(100)
+        grped_by_ids2.saveAsTextFile("phrase-search-scala-1")
+    }
+    def main(args: Array[String])
+    {
+
+    }
+}
