@@ -1,0 +1,151 @@
+These are the notes from Big Data with Spark class
+
+TODO:
+Before we start, was the table created for the Spark dataframe vs python vs SQL ???
+
+https://cloudxlab.com/assessment/slide/18/writing-spark-applications?course_id=1
+https://cloudxlab.com/assessment/slide/58/spark-project-log-parsing?course_id=1
+https://cloudxlab.com/assessment/slide/29/apache-spark-key-value-rdd/1244/project-handling-binary-files?course_id=1
+
+
+var txtRDD = sc.textFile("/data/spark/temps.csv")
+def cleanRecord(line:String) = {
+    var arr = line.split(",");
+    (arr(1).trim, arr(0).toInt)
+}
+var recordsRDD = txtRDD.map(cleanRecord)
+def max(a:Int, b:Int) = if (b > a) b else a
+var res = recordsRDD.reduceByKey(max)
+res.collect()
+
+CHICAGO,21), (BLR,23), (SEATLE,25), (NYC,24)
+----
+
+
+20, NYC, 2014-01-01
+20, NYC, 2015-01-01
+
+var txtRDD = sc.textFile("/data/spark/temps.csv")
+
+def cleanRecord(line:String): (String, (Int, String)) = {
+    var arr = line.split(",");
+    return (arr(1).trim, (arr(0).toInt, arr(2).trim))
+}
+
+var recordsRDD = txtRDD.map(cleanRecord)
+//
+[
+    (NYC, (20, "1-1-2018")), 
+    ("NYC", (21, "2-1-2018")), 
+    ("SEATLE", (20, "1-1-2017")) ]
+]
+
+==> Grouping 
+"NYC", [(20, "1-1-2018"), (21, "2-1-2018")]
+"SEATLE", [(20, "1-1-2017")]
+
+=> max
+"NYC", (21, "2-1-2018")
+"SEATLE", (20, "1-1-2017"
+
+def max(t:(Int, String), t1:(Int, String)):(Int, String)  = {
+    if (t._1 == t1._1){
+        if(t._2 > t1._2) t else t1
+    } else if (t._1 > t1._1){
+        return t
+    } else return t1
+}
+
+
+var res = recordsRDD.reduceByKey(max)
+res.collect()
+----
+def min() = {
+    ....
+}
+
+var res1 = recordsRDD.reduceByKey(min)
+
+var output = res.union(res1)
+def concatenate(min, max) = {
+    ...
+}
+ouput.reduceByKey(concat_max_min)
+---
+
+reduceByCity() -> nyc, tuple
+sortBykey -> data will be order 
+
+----
+
+Discuss
+
+----
+class Customer {
+    var Name:String
+    var Address: String
+}
+
+=======
+var nums = sc.parallelize((1 to 100000), 50)
+
+def mysum(itr:Iterator[Int]):Iterator[Int] = {
+        return Array(itr.sum).toIterator
+}
+var partitions = nums.mapPartitions(mysum)
+
+def incrByOne(x:Int ):Int = {
+    return x+1;
+}
+var partitions1 = partitions.map(incrByOne)
+partitions1.collect()
+
+partitions1.persist()
+partitions1.collect()
+partitions1.unpersist()
+var mysl = StorageLevel(true, true, false, true, 1)
+import org.apache.spark.storage.StorageLevel
+var mysl = StorageLevel(true, true, false, true, 1)
+partitions1.persist(mysl)
+partitions1.collect()
+:history
+
+Connection to the Database
+
+class X implements Serializable
+{
+    
+}
+----
+
+val userData = sc.sequenceFile[ UserID, UserInfo](" hdfs://...")
+ //.partitionBy( new HashPartitioner( 100))
+ .persist()
+
+
+// Function called periodically to process a logfile of events in the past 5 minutes;
+// we assume that this is a SequenceFile containing (UserID, LinkInfo) pairs.
+def processNewLogs( logFileName: String) {
+  val events = sc.sequenceFile[ UserID, LinkInfo]( logFileName)
+  val joined = userData.join( events) // RDD of (UserID, (UserInfo, LinkInfo)) pairs
+  val offTopicVisits = joined.filter({
+     case (userId, (userInfo, linkInfo)) = > !userInfo.topics.contains( linkInfo.topic)
+  }).count()
+  println(" Number of visits to non-subscribed topics: " + offTopicVisits)
+}
+
+def f(t:(userId, (userInfo, linkInfo))) = {
+    return !userInfo.topics.contains( linkInfo.topic)
+}
+val offTopicVisits = joined.filter(f)
+.count()
+
+
+
+userData: [(UserID1, UserInfo1), (UserID2, UserInfo2)]
+events: [(UserID1, LinkInfo1), (UserID2, LinkInfo2) ]
+
+res = userData.join(events) 
+res = [(UserID1, (UserInfo1, LinkInfo1)), (UserID2, (UserInfo2, LinkInfo2))]
+
+

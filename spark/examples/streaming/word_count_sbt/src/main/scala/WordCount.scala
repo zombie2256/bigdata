@@ -5,7 +5,9 @@ object WordCount {
     def main(args: Array[String]) {
         // Create a local StreamingContext with batch interval of 10 second
         val conf = new SparkConf().setAppName("WordCount")
-        val ssc = new StreamingContext(conf, Seconds(10))
+	val sc = new SparkContext(conf);
+        sc.setLogLevel("WARN")
+        val ssc = new StreamingContext(sc, Seconds(2))
 
         // Create a DStream that will connect to hostname:port, like localhost:9999
         val lines = ssc.socketTextStream("localhost", 9999)
