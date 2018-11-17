@@ -40,7 +40,7 @@ Execute the following commands on the terminal. Please read thru the comments to
     # Create the topic
     # Replace localhost with the hostname of node where zookeeper server is running. Generally, zk runs on all hosts on the cluster.
     # Replace test with your topic name
-    kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testsg
+    kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic sandeepgiri9034_test
 
     # Check if topic is created
     kafka-topics.sh  --list --zookeeper localhost:2181
