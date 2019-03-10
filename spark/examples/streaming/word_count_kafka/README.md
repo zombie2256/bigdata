@@ -18,6 +18,7 @@ In this project we will build a spark application which will consume and process
 
     # Build the sbt project
     cd spark/examples/streaming/word_count_kafka
+    sbt package
     
     # To understand the code please go thru KafkaWordCount.scala
 
