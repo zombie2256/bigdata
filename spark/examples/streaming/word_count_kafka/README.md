@@ -97,6 +97,9 @@ Execute the following commands on the terminal. Please read thru the comments to
     #Optional: If you dont want too much debugging information you can redirect some to /dev/null device in unix
     spark-submit --class "KafkaWordCount" --jars spark-streaming-kafka-0-10-assembly_2.11-2.3.0.jar target/scala-2.11/kafkawordcount_2.11-1.0.jar ip-172-xx-xx-xxx.ec2.internal:6667 spark-streaming-consumer-group sandeepgiri9034_test 2>/dev/null
     
+    #Optional: If you want to test the UpdateStateByKey, use the following command instead
+    git pull && sbt package && spark-submit --class "KafkaWordCountUp" jars spark-streaming-kafka-0-10-assembly_2.11-2.3.0.jar target/scala-2.11/kafkawordcount_2.11-1.0.jar ip-172-31-38-146.ec2.internal:6667 spark-streaming-consumer-group sandeepgiri9034_test
+    
 This will start printing the word count of whatever you are typing in step 2.
 
 ## Done!
