@@ -29,14 +29,6 @@ Execute the following commands on the terminal. Please read thru the comments to
 
     # Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
     export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
-
-    # Locate the kafka brokers
-    # The kafka brokers inform zookeeper about their IPs adresses. Most of the eco-system considers the zookeeper as a central registry.
-    # First launch zookeeper client
-    zookeeper-client
-    
-    
-    # I found the for me the location of one of the brokers was ip-172-xx-xx-xxx.ec2.internal:6667
        
     # Create the topic
     # Replace localhost with the hostname of node where zookeeper server is running. Generally, zk runs on all hosts on the cluster.
@@ -47,6 +39,13 @@ Execute the following commands on the terminal. Please read thru the comments to
     kafka-topics.sh  --list --zookeeper localhost:2181
 
 ## Step 2 - Interacting with Kafka - Produce 
+
+    # Locate the kafka brokers
+    # The kafka brokers inform zookeeper about their IPs adresses. Most of the eco-system considers the zookeeper as a central registry.
+    # First launch zookeeper client
+    zookeeper-client
+        
+    # I found the for me the location of one of the brokers was ip-172-xx-xx-xxx.ec2.internal:6667
 
     # find the ip address of any broker from zookeeper-client using command get /brokers/ids/0
     # On the zookeeper-client prompt, list all the brokers that registered
