@@ -44,3 +44,56 @@ object KafkaWordCount {
         ssc.awaitTermination()
     }
 }
+
+
+object KafkaWordCountUp {
+	def updateFunction(newValues: Seq[(Int)], runningCount: Option[(Int)]): Option[(Int)] = {
+	    var result: Option[(Int)] = null
+	    if(newValues.isEmpty){
+		result=Some(runningCount.get)
+	    }
+	    else{
+		result = Some(newValues.reduce(_ + _))
+		if(!runningCount.isEmpty)
+		    result = Some(result.get + runningCount.get)
+	    }
+	    result
+	}
+
+    def main(args: Array[String]) {
+        if (args.length < 3) {
+            System.err.println("Usage: KafkaWordCount <zkQuorum> <consumerGroup> <topic>")
+                System.exit(1)
+        }
+        val Array(zkQuorum, consumerGroup, topic) = args
+        val kafkaParams = Map[String, Object](
+          "bootstrap.servers" -> zkQuorum,
+          "key.deserializer" -> classOf[StringDeserializer],
+          "value.deserializer" -> classOf[StringDeserializer],
+          "group.id" -> consumerGroup,
+          "auto.offset.reset" -> "latest",
+          "enable.auto.commit" -> (false: java.lang.Boolean)
+        )
+        
+        val conf = new SparkConf().setMaster("local[*]").setAppName("KafkaWordCount")
+        val ssc = new StreamingContext(conf, Seconds(2))
+	ssc.sparkContext.setLogLevel("ERROR")
+        val stream = KafkaUtils.createDirectStream[String, String](
+          ssc,
+          PreferConsistent,
+          Subscribe[String, String](Array(topic), kafkaParams)
+        )
+
+        var lines = stream.map(record => record.value)
+//         result.print()
+//         val lines = KafkaUtils.createStream(ssc, zkQuorum, consumerGroup, Map(topic -> 1)).map(_._2)
+        val words = lines.flatMap(_.split(" "))
+        val pairs = words.map(word => (word, 1))
+        val wordCounts = pairs.reduceByKey(_ + _)
+	
+	var updatedRdd =  wordCounts.updateStateByKey(updateFunction)
+        updatedRdd.print()
+        ssc.start()
+        ssc.awaitTermination()
+    }
+}
