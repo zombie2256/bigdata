@@ -65,6 +65,9 @@ Execute the following commands on the terminal. Please read thru the comments to
 
     # Push messages to topic, type "my first kafka topic"
 
+    # Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
+    export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
+    
     # Test if producer is working by consuming messages in another terminal
     # Replace test with your topic name
     kafka-console-consumer.sh --zookeeper localhost:2181 --topic sandeepgiri9034_test --from-beginning
