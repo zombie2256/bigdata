@@ -69,8 +69,9 @@ Execute the following commands on the terminal. Please read thru the comments to
     
     # Test if producer is working by consuming messages in another terminal
     # Replace localhost with the hostname of broker
+    export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
     kafka-console-consumer.sh --zookeeper localhost:2181 --topic sandeepgiri9034_test --from-beginning
-    
+    # Terminate the console consumer by CONTROL+C. It is not longer required. It was just for testing.
     
 ## Step 3 - Launching the spark streaming
     
@@ -87,7 +88,7 @@ Execute the following commands on the terminal. Please read thru the comments to
     # Run the Spark streaming code
     # Use new topic
     # Replace sandeepgiri9034_test with your new topic name
-    spark-submit --class "KafkaWordCount" --jars spark-streaming-kafka-0-10-assembly_2.11-2.3.0.jar target/scala-2.11/kafkawordcount_2.11-1.0.jar ip-172-xx-xx-xxx.ec2.internal:6667 spark-streaming-consumer-group sandeepgiri9034_test
+    spark-submit --class "KafkaWordCount" --jars spark-streaming-kafka-0-10-assembly_2.11-2.3.0.jar target/scala-2.11/kafkawordcount_2.11-1.0.jar cxln4.c.thelab-240901.internal:6667 spark-streaming-consumer-group sandeepgiri9034_test
 
     
     #Optional: If you dont want too much debugging information you can redirect some to /dev/null device in unix
