@@ -58,26 +58,19 @@ Execute the following commands on the terminal. Please read thru the comments to
     get /brokers/ids/1003
 
     
-    # test is a topicname here. Replace test with some name specific to your username like sandeepgiri9034_test
-    # Replace localhost with the hostname of broker
-    # Replace test with your topic name
-    kafka-console-producer.sh --broker-list ip-172-xx-xx-xxx.ec2.internal:6667 --topic sandeepgiri9034_test
-
-    # Push messages to topic, type "my first kafka topic"
-
     # Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
     export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
-    
-    # Test if producer is working by consuming messages in another terminal
-    # Replace test with your topic name
-    kafka-console-consumer.sh --zookeeper localhost:2181 --topic sandeepgiri9034_test --from-beginning
 
-    # Produce a lot
-    # Replace localhost with the hostname of broker
-    kafka-console-producer.sh --broker-list ip-172-xx-xx-xxx.ec2.internal:6667 --topic sandeepgiri9034_test 
+    # Push messages to topic, type "my first kafka topic"
+    kafka-console-producer.sh --broker-list cxln4.c.thelab-240901.internal:6667 --topic sandeepgiri9034_test 
     
     #This will give you a prompt to type the input which will be pushed to the topic
     # Say I typed here: this is a cow this is a bow
+    
+    # Test if producer is working by consuming messages in another terminal
+    # Replace localhost with the hostname of broker
+    kafka-console-consumer.sh --zookeeper localhost:2181 --topic sandeepgiri9034_test --from-beginning
+    
     
 ## Step 3 - Launching the spark streaming
     
