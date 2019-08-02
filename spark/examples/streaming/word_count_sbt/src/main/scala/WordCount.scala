@@ -10,7 +10,7 @@ object WordCount {
         val ssc = new StreamingContext(sc, Seconds(2))
 
         // Create a DStream that will connect to hostname:port, like localhost:9999
-        val lines = ssc.socketTextStream("localhost", 9999)
+        val lines = ssc.socketTextStream("e.cloudxlab.com", 4051)
 
         // Split each line in each batch into words
         val words = lines.flatMap(_.split(" "))
