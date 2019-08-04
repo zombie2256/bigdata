@@ -4,7 +4,7 @@ import org.apache.spark.streaming._
 object WordCount {
     def main(args: Array[String]) {
         // Create a local StreamingContext with batch interval of 10 second
-        val conf = new SparkConf().setAppName("WordCount")
+        val conf = new SparkConf().setMaster("local[*]").setAppName("WordCount")
 	val sc = new SparkContext(conf);
         sc.setLogLevel("WARN")
         val ssc = new StreamingContext(sc, Seconds(2))
