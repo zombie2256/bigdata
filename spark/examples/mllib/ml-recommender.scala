@@ -33,6 +33,11 @@ model.save("mymodel")
 
 //Prepare the recommendations
 val predictions = model.transform(test)
+predictions.map(r => r(2).asInstanceOf[Float] - r(4).asInstanceOf[Float])
+.map(x => x*x)
+.filter(!_.isNaN)
+.reduce(_ + _)
+
 predictions.take(10)
 
 predictions.write.format("com.databricks.spark.csv").save("ml-predictions.csv")
