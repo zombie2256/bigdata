@@ -1,20 +1,25 @@
 # Terminal 1 - Create topic in Kafka
 Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
+  
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
    
 Create the topic
 Replace localhost with the hostname of node where zookeeper server is running. Generally, zk runs on all hosts on the cluster.
 Replace test with your topic name
+  
   kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic sandeepgiri9034_test
 
 Check if topic is created
+  
   kafka-topics.sh  --list --zookeeper localhost:2181
 
 
 # Terminal 1 - Produce the results
+<pre>
   # Locate the kafka brokers
   # The kafka brokers inform zookeeper about their IPs adresses. Most of the eco-system considers the zookeeper as a central registry.
   # First launch zookeeper client
+  
   zookeeper-client
 
   # I found the for me the location of one of the brokers was ip-172-xx-xx-xxx.ec2.internal:6667
@@ -29,7 +34,6 @@ Check if topic is created
   get /brokers/ids/1002
   get /brokers/ids/1003
 
-
   # Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
 
@@ -43,6 +47,7 @@ Check if topic is created
   # Replace localhost with the hostname of broker
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
   kafka-console-consumer.sh --zookeeper localhost:2181 --topic sandeepgiri9034_test --from-beginning
+</pre>
 
 # Terminal 2 - Consume using Pyspark
 
