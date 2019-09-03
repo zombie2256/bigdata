@@ -1,7 +1,8 @@
-## Launch pyspark with graphframes using the following command
+Launch pyspark with graphframes using the following command
 
-pyspark --packages graphframes:graphframes:0.6.0-spark2.3-s_2.11
+  pyspark --packages graphframes:graphframes:0.6.0-spark2.3-s_2.11
 
+<pre>
 # Once pyspark has started, copy-paste the below code on "python>" prompt.
 
 # Create a Vertex DataFrame with unique ID column "id"
@@ -29,3 +30,5 @@ g.edges.filter("relationship = 'follow'").count()
 # Run PageRank algorithm, and show results.
 results = g.pageRank(resetProbability=0.01, maxIter=20)
 results.vertices.select("id", "pagerank").show()
+
+</pre>
