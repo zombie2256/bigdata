@@ -52,6 +52,8 @@
   # Replace localhost with the hostname of broker
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
   kafka-console-consumer.sh --zookeeper localhost:2181 --topic sandeepgiri9034_test --from-beginning
+  
+  # Please come out of it by pressing CTRL+C once you have checked if the messages are reaching the consumer. 
 </pre>
 
 # Terminal 2 - Consume using Pyspark
