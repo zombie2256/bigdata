@@ -59,9 +59,9 @@
 # Terminal 2 - Consume using Pyspark
 
 ## Launch the pyspark
-
+```
   pyspark --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.2
-
+```
 ## Copy-paste the following code
 
 ```
