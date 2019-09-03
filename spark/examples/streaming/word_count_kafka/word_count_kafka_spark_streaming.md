@@ -68,7 +68,8 @@ from pyspark.streaming.kafka import KafkaUtils
 #    json parsing
 import json
 
-ssc = StreamingContext(sc, 60)
+# Every 5 seconds
+ssc = StreamingContext(sc, 5)
 
 lines = KafkaUtils.createStream(ssc, 'localhost:2181', "spark-streaming-consumer", {'sandeepgiri9034_test':1})
 
