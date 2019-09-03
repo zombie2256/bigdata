@@ -1,18 +1,19 @@
 # Terminal 1 - Create topic in Kafka
-Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
+<pre>
+#Include Kafka binaries in the path. HDP includes the kafka and installs at /usr/hdp/current/kafka-broker
   
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
    
-Create the topic
-Replace localhost with the hostname of node where zookeeper server is running. Generally, zk runs on all hosts on the cluster.
-Replace test with your topic name
+#Create the topic
+#Replace localhost with the hostname of node where zookeeper server is running. Generally, zk runs on all hosts on the cluster.
+#Replace test with your topic name
   
   kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic sandeepgiri9034_test
 
-Check if topic is created
+#Check if topic is created
   
   kafka-topics.sh  --list --zookeeper localhost:2181
-
+</pre>
 
 # Terminal 1 - Produce the results
 <pre>
@@ -52,7 +53,8 @@ Check if topic is created
 # Terminal 2 - Consume using Pyspark
 
 ## Launch the pyspark
-pyspark --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.2
+
+  pyspark --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.2
 
 ## Copy-paste the following code
 
