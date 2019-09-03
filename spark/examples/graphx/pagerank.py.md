@@ -28,7 +28,7 @@ g.inDegrees.show()
 g.edges.filter("relationship = 'follow'").count()
 
 # Run PageRank algorithm, and show results.
-results = g.pageRank(resetProbability=0.01, maxIter=20)
+results = g.pageRank(resetProbability=0.01, maxIter=5)
 results.vertices.select("id", "pagerank").show()
 
 </pre>
