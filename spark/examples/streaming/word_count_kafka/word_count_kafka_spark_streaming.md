@@ -39,11 +39,15 @@
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
 
   # Push messages to topic, type "my first kafka topic"
-  kafka-console-producer.sh --broker-list cxln4.c.thelab-240901.internal:6667 --topic sandeepgiri9034_test 
+  *kafka-console-producer.sh --broker-list cxln4.c.thelab-240901.internal:6667 --topic sandeepgiri9034_test*
 
   #This will give you a prompt to type the input which will be pushed to the topic
   # Say I typed here: this is a cow this is a bow
 
+</pre>
+
+# Terminal 2 - Test Consuming Messages
+<pre>
   # Test if producer is working by consuming messages in another terminal
   # Replace localhost with the hostname of broker
   export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
