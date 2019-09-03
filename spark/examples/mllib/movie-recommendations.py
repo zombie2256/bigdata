@@ -1,3 +1,5 @@
+# run with: pyspark --packages graphframes:graphframes:0.6.0-spark2.3-s_2.11
+
 from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml.recommendation import ALS
 from pyspark.sql import Row
