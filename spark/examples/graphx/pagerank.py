@@ -1,3 +1,9 @@
+## Launch pyspark with graphframes using the following command
+
+pyspark --packages graphframes:graphframes:0.6.0-spark2.3-s_2.11
+    
+# Once pyspark has started, copy-paste the below code on "python>" prompt.
+
 # Create a Vertex DataFrame with unique ID column "id"
 v = sqlContext.createDataFrame([
   ("a", "Alice", 34),
