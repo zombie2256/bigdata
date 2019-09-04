@@ -17,3 +17,8 @@ model = als.fit(training)
 # Evaluate the model by computing the RMSE on the test data
 predictions = model.transform(test)
 predictions.show()
+
+import math
+result = predictions.rdd.map(lambda row: row['prediction'] - row['rating']).map(lambda x: x*x).filter(lambda x: not math.isnan(x))
+mse = result.reduce(lambda x,y: x+y)
+
