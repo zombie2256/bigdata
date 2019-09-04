@@ -5,7 +5,7 @@ from pyspark.sql import Row
 lines = spark.read.text("/data/ml-1m/ratings.dat").rdd
 parts = lines.map(lambda row: row.value.split("::"))
 ratingsRDD = parts.map(lambda p: Row(userId=int(p[0]), movieId=int(p[1]),
-                                     rating=float(p[2]), timestamp=long(p[3])))
+                                     rating=int(p[2]), timestamp=int(p[3])))
 ratings = spark.createDataFrame(ratingsRDD)
 (training, test) = ratings.randomSplit([0.8, 0.2])
 
