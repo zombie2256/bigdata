@@ -17,7 +17,9 @@ On the console, run the following commands.
 
 Show the list of databases:
 
+```
   show databases
+```
 
 Create database of your own choice.
   
@@ -50,6 +52,7 @@ On console, run the following command to make a copy of the daa
 
 On hive console, run the following command to create and load table  
 
+```
   CREATE TABLE nyse_hdfs(
     exchange1 STRING,
     symbol1 STRING,
@@ -66,6 +69,7 @@ On hive console, run the following command to create and load table
 
   load data inpath 'hdfs:///user/sandeepgiri9034/NYSE_daily' overwrite into table nyse_hdfs;
 
+```
 
 Movie ratings data example.
 
@@ -76,6 +80,7 @@ Copy data from /data/ml-100k/u.data into our hdfs home
 
 Open Hive console and run following:
 
+```
   CREATE TABLE u_data( userid INT, movieid INT, rating INT, unixtime STRING)
   ROW FORMAT DELIMITED
   FIELDS TERMINATED BY '\t'
@@ -86,6 +91,7 @@ Open Hive console and run following:
   select * from u_data limit 5;
   select movieid, avg(rating) ar from u_data group by movieid order by ar desc
 
+```
 
 See https://cloudxlab.com/assessment/slide/10/hive/326/hive-movielens-assignment?course_id=1
 
