@@ -1,6 +1,6 @@
 Most of the commands start with:
 
-  hadoop fs
+	hadoop fs
 
 This would print the help document like:
 
@@ -80,18 +80,17 @@ To upload a file into your home directory, use
    
 To download a file from hdfs use
   
-  hadoop fs -get some_file_in_hdfs
+	hadoop fs -get some_file_in_hdfs
 
 
 To find the blocks of a file
 
-  hdfs fsck -blocks -locations -racks  -files /user/sandeepgiri9034/sampletest_1.txt
+	hdfs fsck -blocks -locations -racks  -files /user/sandeepgiri9034/sampletest_1.txt
 
 To set replication factor as 1
 
-  hadoop fs -setrep -w 5 /user/sandeepgiri9034/sampletest_1.txt
+	hadoop fs -setrep -w 5 /user/sandeepgiri9034/sampletest_1.txt
 
 Check blocks
 
-  hdfs fsck -blocks -locations -racks  -files /user/sandeepgiri9034/sampletest_1.txt
-
+	hdfs fsck -blocks -locations -racks  -files /user/sandeepgiri9034/sampletest_1.txt
