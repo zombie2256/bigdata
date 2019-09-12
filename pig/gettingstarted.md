@@ -1,5 +1,3 @@
-Note: the lines starting with '#' are comments.
-
 Launch pig Console
 
     pig
