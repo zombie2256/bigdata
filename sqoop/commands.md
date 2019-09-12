@@ -89,6 +89,8 @@ Select rows to see data:
     select * from sales_test;
 
 
+## Documentation
+
 To see help documentation of import use:
 
     sqoop help import
