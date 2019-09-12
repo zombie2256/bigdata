@@ -25,6 +25,70 @@ See 'sqoop help COMMAND' for information on a specific command.
 
 </pre>
 
+<hr/>
+
+## Import from SQL to HDFS
+
+### Check mysql table
+
+Connect to mysql
+
+    mysql -h 10.142.1.2 -u sqoopuser -pNHkkP876rp
+    
+On mysql prompt, run the following:
+
+    use sqoopex
+    select * from widgets
+
+### Import
+
+If widgets is existing in hdfs, please delete it:
+
+    hadoop fs -rmr widgets
+
+Run the import command:
+    
+    sqoop import --connect jdbc:mysql://10.142.1.2/sqoopex --table widgets -m 2 --username sqoopuser --password NHkkP876rp --split-by id
+
+## mysql to hive
+
+    sqoop import --connect jdbc:mysql://10.142.1.2/sqoopex  --table widgets -m 2 --hive-import --username sqoopuser  --hive-database sandeepgiri9034 --split-by id --password NHkkP876rp
+
+## mysql to HBase
+
+    sqoop import --connect jdbc:mysql://ip-172-31-20-247/sqoopex --table widgets --hbase-table 'sgiri:widgets' --column-family cf2 --username sqoopuser  --hbase-create-table --columns id,widget_name --hbase-row-key id -m 1 --password NHkkP876rp
+
+    sqoop import --connect jdbc:mysql://ip-172-31-20-247/sqoopex --table widgets --hbase-table 'sgiri:widgets' --column-family cf1 --username sqoopuser  --hbase-create-table --columns id,lastUpdated --hbase-row-key id -m 1 --password NHkkP876rp
+
+## Hive to MySQL
+
+Copy sales.log locally 
+    
+    hadoop fs -cp /data/hive/sales.log .
+
+Launch hive using command: `hive`
+
+Create Hive Table:
+
+    use sg;
+    CREATE TABLE sales_test(widget_id INT, qty INT,
+    street STRING, city STRING, state STRING,
+    zip INT, sale_date STRING)
+    ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+Find the location of your table using:
+
+    describe formatted sales_test
+
+Load Data:
+    
+    LOAD DATA INPATH "sales.log" INTO TABLE sales_test;
+
+Select rows to see data:
+
+    select * from sales_test;
+
+
 To see help documentation of import use:
 
     sqoop help import
@@ -409,68 +473,4 @@ Arguments to mysqldump and other subprograms may be supplied
 after a '--' on the command line.
 
 </pre>
-
-</pre>
-<hr/>
-
-## Import from SQL to HDFS
-
-### Check mysql table
-
-Connect to mysql
-
-    mysql -h 10.142.1.2 -u sqoopuser -pNHkkP876rp
-    
-On mysql prompt, run the following:
-
-    use sqoopex
-    select * from widgets
-
-### Import
-
-If widgets is existing in hdfs, please delete it:
-
-    hadoop fs -rmr widgets
-
-Run the import command:
-    
-    sqoop import --connect jdbc:mysql://10.142.1.2/sqoopex --table widgets -m 2 --username sqoopuser --password NHkkP876rp --split-by id
-
-## mysql to hive
-
-    sqoop import --connect jdbc:mysql://10.142.1.2/sqoopex  --table widgets -m 2 --hive-import --username sqoopuser  --hive-database sandeepgiri9034 --split-by id --password NHkkP876rp
-
-## mysql to HBase
-
-    sqoop import --connect jdbc:mysql://ip-172-31-20-247/sqoopex --table widgets --hbase-table 'sgiri:widgets' --column-family cf2 --username sqoopuser  --hbase-create-table --columns id,widget_name --hbase-row-key id -m 1 --password NHkkP876rp
-
-    sqoop import --connect jdbc:mysql://ip-172-31-20-247/sqoopex --table widgets --hbase-table 'sgiri:widgets' --column-family cf1 --username sqoopuser  --hbase-create-table --columns id,lastUpdated --hbase-row-key id -m 1 --password NHkkP876rp
-
-## Hive to MySQL
-
-Copy sales.log locally 
-    
-    hadoop fs -cp /data/hive/sales.log .
-
-Launch hive using command: `hive`
-
-Create Hive Table:
-
-    use sg;
-    CREATE TABLE sales_test(widget_id INT, qty INT,
-    street STRING, city STRING, state STRING,
-    zip INT, sale_date STRING)
-    ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
-
-Find the location of your table using:
-
-    describe formatted sales_test
-
-Load Data:
-    
-    LOAD DATA INPATH "sales.log" INTO TABLE sales_test;
-
-Select rows to see data:
-
-    select * from sales_test;
 
