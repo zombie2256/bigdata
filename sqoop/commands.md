@@ -32,6 +32,7 @@ To see help documentation of import use:
 This looks like the following:
 
 <pre>
+
 [sandeepgiri9034@cxln4 ~]$ sqoop help import
 SLF4J: Class path contains multiple SLF4J bindings.
 SLF4J: Found binding in [jar:file:/usr/hdp/2.6.2.0-205/hadoop/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
@@ -407,6 +408,7 @@ At minimum, you must specify --connect and --table
 Arguments to mysqldump and other subprograms may be supplied
 after a '--' on the command line.
 
+</pre>
 </pre>
 
 ## Import from SQL to HDFS
