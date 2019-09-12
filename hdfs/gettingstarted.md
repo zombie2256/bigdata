@@ -64,7 +64,7 @@ bin/hadoop command [genericOptions] [commandOptions]
 
 To see the files in your home directory use:
   
-  hadoop fs -ls
+	hadoop fs -ls
 
 Note that this is different from ls
 Your hdfs home directory would be something like /user/sandeepgiri1234
@@ -72,11 +72,11 @@ and local home directory would be like /home/sandeepgiri1234
 
 To see the files in /data directory in hdfs use:
   
-  hadoop fs -ls /data
+	hadoop fs -ls /data
 
 To upload a file into your home directory, use 
   
-  hadoop fs -put somelocalfile
+	hadoop fs -put somelocalfile
    
 To download a file from hdfs use
   
