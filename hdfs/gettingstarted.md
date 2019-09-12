@@ -1,4 +1,4 @@
-# Most of the commands start with:
+Most of the commands start with:
 
   hadoop fs
 
@@ -62,35 +62,36 @@ bin/hadoop command [genericOptions] [commandOptions]
 </pre>
 
 
-# To see the files in your home directory use:
+To see the files in your home directory use:
   
   hadoop fs -ls
-  # Note that this is different from ls
-  # Your hdfs home directory would be something like /user/sandeepgiri1234
-  # and local home directory would be like /home/sandeepgiri1234
 
-# To see the files in /data directory in hdfs use:
+Note that this is different from ls
+Your hdfs home directory would be something like /user/sandeepgiri1234
+and local home directory would be like /home/sandeepgiri1234
+
+To see the files in /data directory in hdfs use:
   
   hadoop fs -ls /data
 
-# To upload a file into your home directory, use 
+To upload a file into your home directory, use 
   
   hadoop fs -put somelocalfile
    
-# To download a file from hdfs use
+To download a file from hdfs use
   
   hadoop fs -get some_file_in_hdfs
 
 
-# To find the blocks of a file
+To find the blocks of a file
 
   hdfs fsck -blocks -locations -racks  -files /user/sandeepgiri9034/sampletest_1.txt
 
-# To set replication factor as 1
+To set replication factor as 1
 
   hadoop fs -setrep -w 5 /user/sandeepgiri9034/sampletest_1.txt
 
-# Check blocks
+Check blocks
 
   hdfs fsck -blocks -locations -racks  -files /user/sandeepgiri9034/sampletest_1.txt
 
