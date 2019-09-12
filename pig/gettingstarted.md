@@ -2,9 +2,9 @@ Note: the lines starting with '#' are comments.
 
 Launch pig Console
 
-  pig
+    pig
 
-On the pig console which is marked 'grunt>':
+On the pig console which is marked `grunt>`:
 
 Load the data from HDFS. You can take a look at the file using hadoop fs -ls /data/NYSE_dividends
 
