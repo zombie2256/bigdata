@@ -7,7 +7,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class StubReducer extends Reducer<IntWritable, LongWritable, Text, LongWritable> {
+public class StubCCReducer extends Reducer<IntWritable, LongWritable, Text, LongWritable> {
 
   @Override
   public void reduce(IntWritable key, Iterable<LongWritable> values, Context context)

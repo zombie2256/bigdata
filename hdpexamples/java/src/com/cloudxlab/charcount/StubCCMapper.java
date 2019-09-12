@@ -6,7 +6,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class StubMapper extends Mapper<Object, Text, IntWritable, LongWritable> {
+public class StubCCMapper extends Mapper<Object, Text, IntWritable, LongWritable> {
 
   @Override
   public void map(Object key, Text value, Context context)

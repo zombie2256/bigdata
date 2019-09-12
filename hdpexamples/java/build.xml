@@ -1,4 +1,4 @@
-<project>
+<project default="jar">
 
     <target name="clean">
         <delete dir="build"/>
@@ -18,7 +18,7 @@
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/hdpexamples.jar" basedir="build/classes">
             <manifest>
-                <attribute name="Main-Class" value="com.cloudxlab.wordcount.StubDriver"/>
+                <!-- attribute name="Main-Class" value="com.cloudxlab.wordcount.StubDriver"/-->
             </manifest>
         </jar>
     </target>
