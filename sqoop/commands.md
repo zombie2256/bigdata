@@ -406,6 +406,7 @@ bin/hadoop command [genericOptions] [commandOptions]
 At minimum, you must specify --connect and --table
 Arguments to mysqldump and other subprograms may be supplied
 after a '--' on the command line.
+
 </pre>
 
 ## Import from SQL to HDFS
