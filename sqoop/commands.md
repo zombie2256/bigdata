@@ -408,3 +408,25 @@ Arguments to mysqldump and other subprograms may be supplied
 after a '--' on the command line.
 </pre>
 
+## Import from SQL to HDFS
+
+### Check mysql table
+
+Connect to mysql
+
+    mysql -h 10.142.1.2 -u sqoopuser -pNHkkP876rp
+    
+On mysql prompt, run the following:
+
+    use sqoopex
+    select * from widgets
+
+### Import
+If widgets is existing in hdfs, please delete it:
+
+    hadoop fs -rmr widgets
+
+Run the import command:
+    
+    sqoop import --connect jdbc:mysql://10.142.1.2/sqoopex --table widgets -m 2 --username sqoopuser --password NHkkP876rp --split-by id
+
