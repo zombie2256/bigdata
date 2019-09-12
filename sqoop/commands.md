@@ -409,7 +409,9 @@ Arguments to mysqldump and other subprograms may be supplied
 after a '--' on the command line.
 
 </pre>
+
 </pre>
+<hr/>
 
 ## Import from SQL to HDFS
 
