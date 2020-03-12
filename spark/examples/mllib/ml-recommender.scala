@@ -1,5 +1,6 @@
-//Run it with spark 2
-//In case of cloudxlab: /usr/spark2.0.1/bin/spark-shell 
+//Note: it works only in spark2
+//To launch it on local mode, run the following command on cloudxlab console: spark-shell
+//To launch it in yarn mode, run the following command on cloudxlab console: spark-shell --master yarn
 
 import org.apache.spark.ml.recommendation.ALS
  
