@@ -12,7 +12,7 @@ To change the wordcount example to use 2 reducer, uncoment line 43 in wordcount/
 ant jar
 
 ### To Run wordcount MapReduce, use:
-hadoop jar build/jar/hdpexamples.jar com.cloudxlab.wordcount.StubDriver
+`hadoop jar build/jar/hdpexamples.jar com.cloudxlab.wordcount.StubDriver`
 
 This will create `javamrout` folder
 You can check the result using -ls command
@@ -151,33 +151,6 @@ z	3651
 |	408
 ~	2
 </pre>
-
-=======
-#This will create javamrout folder
-# You can open Hue from mylab and click file browser to check the output
-
-
-#To Run charcount MapReduce example, please use:
-
-    hadoop jar build/jar/hdpexamples.jar com.cloudxlab.charcount.StubCCDriver /data/mr/wordcount/input charcount
-
-#This will save the result in charcount folder. Take a look at result:
-    
-    hadoop fs -ls charcount
-
-#It would look something like this:
-<pre>
-Found 5 items
--rw-r--r--   3 sandeepgiri9034 sandeepgiri9034          0 2019-09-12 01:26 charcount/_SUCCESS
--rw-r--r--   3 sandeepgiri9034 sandeepgiri9034        657 2019-09-12 01:26 charcount/part-r-00000
--rw-r--r--   3 sandeepgiri9034 sandeepgiri9034          0 2019-09-12 01:26 charcount/part-r-00001
--rw-r--r--   3 sandeepgiri9034 sandeepgiri9034          0 2019-09-12 01:26 charcount/part-r-00002
--rw-r--r--   3 sandeepgiri9034 sandeepgiri9034          0 2019-09-12 01:26 charcount/part-r-00003
-</pre>
-
-#To see char counts
-    
-    hadoop fs -cat charcount/part-r-00000
 
 #To further clean the result
     
