@@ -19,8 +19,8 @@ public class StubCCDriver {
 		JobConf conf = new JobConf();
 		Job job = new Job(conf, "wordcount");
 		job.setJarByClass(StubCCDriver.class);
-		job.setMapperClass(StubMapper.class);
-		job.setReducerClass(StubReducer.class);
+		job.setMapperClass(StubCCMapper.class);
+		job.setReducerClass(StubCCReducer.class);
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(LongWritable.class);

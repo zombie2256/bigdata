@@ -33,14 +33,14 @@ public class StubTest {
 		/*
 		 * Set up the mapper test harness.
 		 */
-		StubMapper mapper = new StubMapper();
+		StubCCMapper mapper = new StubCCMapper();
 		mapDriver = new MapDriver<Object, Text, IntWritable, LongWritable>();
 		mapDriver.setMapper(mapper);
 
 		/*
 		 * Set up the reducer test harness.
 		 */
-		StubReducer reducer = new StubReducer();
+		StubCCReducer reducer = new StubCCReducer();
 		reduceDriver = new ReduceDriver<IntWritable, LongWritable, Text, LongWritable>();
 		reduceDriver.setReducer(reducer);
 

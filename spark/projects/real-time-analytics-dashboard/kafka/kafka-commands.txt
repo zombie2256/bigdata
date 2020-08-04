@@ -8,6 +8,6 @@ kafka-topics.sh  --list --zookeeper localhost:2181
 
 # find the ip address of any broker from zookeeper-client using command get /brokers/id/0
 
-kafka-console-producer.sh --broker-list ip-172-31-13-154.ec2.internal:6667 --topic abhinav_test
+kafka-console-producer.sh --broker-list cxln2.c.thelab-240901.internal:6667 --topic abhinav_test
 
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic abhinav_test --from-beginning

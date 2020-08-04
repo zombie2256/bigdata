@@ -1,5 +1,6 @@
-//Run it with spark 2
-//In case of cloudxlab: /usr/spark2.0.1/bin/spark-shell 
+//Note: it works only in spark2
+//To launch it on local mode, run the following command on cloudxlab console: spark-shell
+//To launch it in yarn mode, run the following command on cloudxlab console: spark-shell --master yarn
 
 import org.apache.spark.ml.recommendation.ALS
  
@@ -33,6 +34,11 @@ model.save("mymodel")
 
 //Prepare the recommendations
 val predictions = model.transform(test)
+predictions.map(r => r(2).asInstanceOf[Float] - r(4).asInstanceOf[Float])
+.map(x => x*x)
+.filter(!_.isNaN)
+.reduce(_ + _)
+
 predictions.take(10)
 
 predictions.write.format("com.databricks.spark.csv").save("ml-predictions.csv")
